@@ -1,9 +1,27 @@
 <?php
 
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "diu";
+
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+
+
+
+
+
  $firstname=$_POST['firstname'];
  $lastname=$_POST['lastname'];
  $username=$_POST['username'];
- $password=$_POST['password'];
+ $pword=$_POST['password'];
  $email=$_POST['email'];
  $agree=$_POST['agree'];
 
@@ -24,7 +42,7 @@
 	   echo "Enter usename";
 	  
   }
- else if($password=="")
+ else if($pword=="")
  {
 	 
 	 echo "Enter password";
@@ -40,11 +58,22 @@
 else{
 	
 	
-	echo $firstname."<br>";
-	echo $lastname."<br>";
-	echo $username."<br>";
-	echo $password."<br>";
-	echo  $agree;
+	
+	
+$sql = "INSERT INTO registration (firstname,lastname,username,password,email,agree)
+VALUES ('$firstname','$lastname','$username','$pword','$email','$agree')";
+	
+if ($conn->query($sql) === TRUE) {
+  echo "New record created successfully";
+} else {
+  echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$conn->close();
+	
+	
+	
+	
 }
 	 
 
